@@ -1,5 +1,6 @@
 package me.vem.utils.io;
 
+import java.io.FileOutputStream;
 import java.nio.ByteBuffer;
 
 public interface Compressable {
@@ -15,6 +16,23 @@ public interface Compressable {
 	 * @return The given buffer.
 	 */
 	ByteBuffer writeTo(ByteBuffer buf);
+	
+	/**
+	 * WARNING: THIS METHOD, BY DEFAULT, DOES NOTHING. <br>
+	 * This method was intended to be an optional method that must be overrode for any actual functionality to occur.
+	 * 
+	 * The idea of this method is to write small chunks of a large datamass to the file output stream given. <br>
+	 * 
+	 * For instance, in my Dopey-Survival game project, the world file is of unpredictable size, so this method is used to flush a
+	 * kilobyte at a time to the output stream.
+	 * 
+	 * @param fos
+	 * @param buf
+	 * @return
+	 */
+	default ByteBuffer writeTo(FileOutputStream fos, ByteBuffer buf) {
+		return buf;
+	}
 	
 	/**
 	 * Calls writeTo(byte[] buf). The byte[] it gives it is a new one with a length of writeSize().
