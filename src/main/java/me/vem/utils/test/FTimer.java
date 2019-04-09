@@ -20,7 +20,7 @@ public class FTimer {
 	private final Runnable func;
 	
 	/**
-	 * A shorthand for this constructor uses Lambda functions.<br>
+	 * A shorthand for this constructor uses Lambda functions.<br><br>
 	 * 
 	 * FTimer timer = new FTimer("Some Method", () -> someMethod());<br>
 	 * FTimer timer2 = new FTimer("Some Method 2", () -> {
