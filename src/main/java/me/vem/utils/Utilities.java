@@ -13,4 +13,10 @@ public class Utilities {
 		} catch (InterruptedException e) {}
 	}
 	
+	public static void sleepUnsafe(int hz, long dt) throws InterruptedException {
+		long nanodelay = 1000000000 / hz - dt;
+		if(nanodelay < 0) return;
+
+		Thread.sleep(nanodelay / 1000000, (int)(nanodelay % 1000000));
+	}
 }

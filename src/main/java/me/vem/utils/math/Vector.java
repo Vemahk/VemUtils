@@ -1,9 +1,9 @@
 package me.vem.utils.math;
 
 import java.awt.Point;
-import java.nio.ByteBuffer;
 
 import me.vem.utils.io.Compressable;
+import me.vem.utils.io.RollingDataSaver;
 
 /**
  * A class designed to represent 2-Dimensional Vectors.
@@ -161,6 +161,11 @@ public class Vector implements Compressable{
 	 */
 	public void offsetY(float dy) { this.y += dy; }
 	
+	public void lerpTo(Vector b, float alpha) {
+		this.x = MathUtils.lerp(this.x, b.x, alpha);
+		this.y = MathUtils.lerp(this.y, b.y, alpha);
+	}
+	
 	/**
 	 * @return The magnitude, or length, of this Vector.
 	 */
@@ -236,11 +241,9 @@ public class Vector implements Compressable{
 		return new Vector(nx, ny);
 	}
 	
-	@Override public int writeSize() { return 8; }
-	
 	@Override
-	public ByteBuffer writeTo(ByteBuffer buf) {
-		return buf.putFloat(x).putFloat(y);
+	public RollingDataSaver writeTo(RollingDataSaver saver) {
+		return saver.putFloat(x).putFloat(y);
 	}
 	
 	@Override
@@ -271,5 +274,18 @@ public class Vector implements Compressable{
 	 */
 	public static Vector pointDiff(float x1, float y1, float x2, float y2) {
 		return new Vector(x1 - x2, y1-y2);
+	}
+	
+	/**
+	 * Linearly Interpolates Vector a to b.
+	 * @param a
+	 * @param b
+	 * @param alpha
+	 * @return A new vector
+	 */
+	public static Vector lerp(Vector a, Vector b, float alpha) {
+		Vector v = new Vector(a);
+		v.lerpTo(b, alpha);
+		return v;
 	}
 }

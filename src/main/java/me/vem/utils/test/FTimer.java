@@ -16,6 +16,16 @@ package me.vem.utils.test;
  */
 public class FTimer {
 
+	public static FTimer test(String id, Runnable func) {
+		return test(id, func, 1);
+	}
+	
+	public static FTimer test(String id, Runnable func, int runs) {
+		FTimer timer = new FTimer(id, func);
+		timer.test(runs);
+		return timer;
+	}
+	
 	private final String id;
 	private final Runnable func;
 	
@@ -31,18 +41,9 @@ public class FTimer {
 	 * @param id The printed ID of the FTimer.
 	 * @param func The runnable (i.e. given function to test) to time.
 	 */
-	public FTimer(String id, Runnable func) {
+	private FTimer(String id, Runnable func) {
 		this.id = id;
 		this.func = func;
-	}
-	
-	/**
-	 * Times a single test and prints it out.
-	 * @return this FTimer object.
-	 */
-	public FTimer test() {
-		test(1);
-		return this;
 	}
 	
 	/**
